@@ -2,8 +2,8 @@ import 'package:number_trivia/features/number_trivia/domain/entities/number_triv
 
 class NumberTriviaModel extends NumberTrivia {
   const NumberTriviaModel({
-    required super.text,
     required super.number,
+    required super.text,
   });
 
   factory NumberTriviaModel.fromJson(Map<String, dynamic> jsonMap) {
