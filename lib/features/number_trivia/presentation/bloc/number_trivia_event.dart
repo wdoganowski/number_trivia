@@ -7,6 +7,7 @@ abstract class NumberTriviaEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// Implementation
 
 class GetTriviaForConcreteNumber extends NumberTriviaEvent {
   final String numberString;
