@@ -36,7 +36,7 @@ void main() {
   group(
     'getConcreteNumberTrivia',
     () {
-      final tNumber = 1;
+      const tNumber = 1;
       final tNumberTriviaModel = NumberTriviaModel.fromJson(
           json.decode(fixture('trivia_integer.json')));
 
@@ -74,7 +74,7 @@ void main() {
           // act
           final call = dataSource.getConcreteNumberTrivia;
           // assert
-          expect(() => call(tNumber), throwsA(TypeMatcher<ServerException>()));
+          expect(() => call(tNumber), throwsA(const TypeMatcher<ServerException>()));
         },
       );
     },
@@ -120,7 +120,7 @@ group(
           // act
           final call = dataSource.getRandomNumberTrivia;
           // assert
-          expect(() => call(), throwsA(TypeMatcher<ServerException>()));
+          expect(() => call(), throwsA(const TypeMatcher<ServerException>()));
         },
       );
     },

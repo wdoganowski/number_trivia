@@ -57,7 +57,7 @@ void main() {
   group(
     'cacheNumberTrivia', 
     () {
-      final tNumberTriviaModel = NumberTriviaModel(number: 1, text: 'Test Trivia');
+      const tNumberTriviaModel = NumberTriviaModel(number: 1, text: 'Test Trivia');
       test(
         'should call SharedPreferences to cache the data',
         () async {

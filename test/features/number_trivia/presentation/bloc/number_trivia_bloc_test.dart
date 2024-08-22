@@ -64,7 +64,7 @@ void main() {
         when(mockGetConcreteNumberTrivia(any))
             .thenAnswer((_) async => const Right(tNumberTrivia));
         // act
-        block.add(GetTriviaForConcreteNumber(numberString: tNumberString));
+        block.add(const GetTriviaForConcreteNumber(numberString: tNumberString));
         await untilCalled(mockInputConverter.stringToUnsignedInteger(any));
         // assert
         verify(mockInputConverter.stringToUnsignedInteger(tNumberString));
@@ -83,7 +83,7 @@ void main() {
         ];
         expectLater(block.stream, emitsInOrder(expectedStates));
         // act
-        block.add(GetTriviaForConcreteNumber(numberString: tNumberString));
+        block.add(const GetTriviaForConcreteNumber(numberString: tNumberString));
       },
     );
 
@@ -95,7 +95,7 @@ void main() {
         when(mockGetConcreteNumberTrivia(any))
             .thenAnswer((_) async => const Right(tNumberTrivia));
         // act
-        block.add(GetTriviaForConcreteNumber(numberString: tNumberString));
+        block.add(const GetTriviaForConcreteNumber(numberString: tNumberString));
         await untilCalled(mockGetConcreteNumberTrivia(any));
         // assert later
         verify(
@@ -118,7 +118,7 @@ void main() {
         ];
         expectLater(block.stream, emitsInOrder(expectedStates));
         // act
-        block.add(GetTriviaForConcreteNumber(numberString: tNumberString));
+        block.add(const GetTriviaForConcreteNumber(numberString: tNumberString));
       },
     );
 
@@ -137,7 +137,7 @@ void main() {
         ];
         expectLater(block.stream, emitsInOrder(expectedStates));
         // act
-        block.add(GetTriviaForConcreteNumber(numberString: tNumberString));
+        block.add(const GetTriviaForConcreteNumber(numberString: tNumberString));
       },
     );
 
@@ -156,7 +156,7 @@ void main() {
         ];
         expectLater(block.stream, emitsInOrder(expectedStates));
         // act
-        block.add(GetTriviaForConcreteNumber(numberString: tNumberString));
+        block.add(const GetTriviaForConcreteNumber(numberString: tNumberString));
       },
     );
   });
