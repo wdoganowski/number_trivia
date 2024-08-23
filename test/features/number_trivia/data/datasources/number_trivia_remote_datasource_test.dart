@@ -33,6 +33,26 @@ void main() {
         .thenAnswer((_) async => http.Response('Something went wrong', 404));
   }
 
+  group('API', () {
+    const tNumber = 1;
+
+    test(
+      'should return a text from api',
+      () async {
+        // arrange
+        final url = Uri.parse('http://numbersapi.com/$tNumber');
+        // act
+        final response =
+            await http.get(url, headers: {'Content-Type': 'application/json'});
+        final jsonResponse = jsonDecode(response.body);
+        print(jsonResponse);
+        // assert
+        expect(response.statusCode, 200);
+        expect(jsonResponse['number'], equals(1));
+      },
+    );
+  });
+
   group(
     'getConcreteNumberTrivia',
     () {
@@ -74,13 +94,14 @@ void main() {
           // act
           final call = dataSource.getConcreteNumberTrivia;
           // assert
-          expect(() => call(tNumber), throwsA(const TypeMatcher<ServerException>()));
+          expect(() => call(tNumber),
+              throwsA(const TypeMatcher<ServerException>()));
         },
       );
     },
   );
 
-group(
+  group(
     'getRandomNumberTrivia',
     () {
       final tNumberTriviaModel = NumberTriviaModel.fromJson(
@@ -126,4 +147,3 @@ group(
     },
   );
 }
-

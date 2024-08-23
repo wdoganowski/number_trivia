@@ -1,5 +1,5 @@
-import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:number_trivia/core/network/network_info.dart';
 import 'package:number_trivia/core/util/input_converter.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_datasource.dart';
@@ -20,8 +20,8 @@ Future<void> init() async {
   // Block
   sl.registerFactory(() => NumberTriviaBloc(
         Empty(),
-        concrete: sl(),
-        random: sl(),
+        getConcreteNumberTrivia: sl(),
+        getRandomNumberTrivia: sl(),
         inputConverter: sl(),
       ));
   // Use cases
@@ -45,7 +45,8 @@ Future<void> init() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
 
   //! External
-  sl.registerLazySingletonAsync(() => SharedPreferences.getInstance());
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => DataConnectionChecker());
+  sl.registerLazySingleton(() => InternetConnection());
 }
