@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,12 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
       {required this.getConcreteNumberTrivia,
       required this.getRandomNumberTrivia,
       required this.inputConverter}) {
-    on<GetTriviaForConcreteNumber>((event, emit) async {
+    on<GetTriviaForConcreteNumber>(_getTriviaFromConcreteNumber);
+    on<GetTriviaForRandomNumber>(_getTriviaFromRandomNumber);
+  }
+
+  FutureOr<void> _getTriviaFromConcreteNumber(event, emit) async {
+    await (GetTriviaForConcreteNumber event, Emitter<NumberTriviaState> emit) async {
       final inputEither =
           inputConverter.stringToUnsignedInteger(event.numberString);
       await inputEither.fold(
@@ -40,14 +46,15 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
             await getConcreteNumberTrivia(Params(number: integer));
         emit(_eitherLoadedOrErrorState(failureOrTrivia));
       });
-    });
-    on<GetTriviaForRandomNumber>((event, emit) async {
-        emit(const Loading());
-        final failureOrTrivia =
-            await getRandomNumberTrivia.call(NoParams());        
-        emit(_eitherLoadedOrErrorState(failureOrTrivia));
-      });
+    }(event, emit);
   }
+
+  FutureOr<void> _getTriviaFromRandomNumber(event, emit) async {
+      emit(const Loading());
+      final failureOrTrivia =
+          await getRandomNumberTrivia.call(NoParams());        
+      emit(_eitherLoadedOrErrorState(failureOrTrivia));
+    }
 
   NumberTriviaState _eitherLoadedOrErrorState(Either<Failure, NumberTrivia> failureOrTrivia) {
     return failureOrTrivia.fold(
